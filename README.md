@@ -12,3 +12,8 @@ Credit:
 https://github.com/lukapaunovic/create_wp/
 
 https://www.wpexplorer.com/htaccess-wordpress-security/
+
+https://www.geckoandfly.com/25102/htaccess-snippets-hardening-wordpress-security-hacking/
+
+https://www.wpbeginner.com/wp-tutorials/9-most-useful-htaccess-tricks-for-wordpress/
+
