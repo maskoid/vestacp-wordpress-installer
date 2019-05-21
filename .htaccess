@@ -1,0 +1,27 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{query_string} concat.*\( [NC,OR]
+RewriteCond %{query_string} union.*select.*\( [NC,OR]
+RewriteCond %{query_string} union.*all.*select [NC]
+RewriteRule ^(.*)$ index.php [F,L]
+RewriteCond %{QUERY_STRING} base64_encode[^(]*\([^)]*\) [OR]
+RewriteCond %{QUERY_STRING} (<|%3C)([^s]*s)+cript.*(>|%3E) [NC,OR]
+</IfModule>
+<Files .htaccess>
+Order Allow,Deny
+Deny from all
+</Files>
+<Files wp-config.php>
+Order Allow,Deny
+Deny from all
+</Files>
+<Files xmlrpc.php>
+Order allow,deny
+Deny from all
+</files>
+# Gzip
+<ifModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript text/javascript
+</ifModule>
+Options +FollowSymLinks -Indexes
