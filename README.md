@@ -17,3 +17,4 @@ https://www.geckoandfly.com/25102/htaccess-snippets-hardening-wordpress-security
 
 https://www.wpbeginner.com/wp-tutorials/9-most-useful-htaccess-tricks-for-wordpress/
 
+https://www.keycdn.com/blog/wp-cli
