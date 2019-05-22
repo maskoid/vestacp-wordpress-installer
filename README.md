@@ -11,6 +11,8 @@ Credit:
 
 https://github.com/lukapaunovic/create_wp/
 
+https://github.com/Vestacp-Panel-Addon-Wordpress-installer/wp-installer
+
 https://www.wpexplorer.com/htaccess-wordpress-security/
 
 https://www.geckoandfly.com/25102/htaccess-snippets-hardening-wordpress-security-hacking/
