@@ -56,16 +56,6 @@
 #	RewriteRule ^(.*)$ http://www.example.com/$1 [L,R=301]
 #</IfModule>
 
-# REDIRECT DIRECT IP ACCESS TO DOMAIN
-# Change the URL if someone accesses the website via direct IP address.
-#
-#<IfModule mod_rewrite.c>
-#	RewriteEngine On
-#	RewriteBase /
-#	RewriteCond %{HTTP_HOST} ^186\.753\.090\.123$
-#	RewriteRule ^(.*)$ https://example.com/$1 [L,R=301]
-#</IfModule>
-
 # REDIRECT INCORRECT ROBOTS.TXT REQUESTS TO THE RIGHT PLACE.
 # Source: https://perishablepress.com/htaccess-cleanup/
 #
@@ -144,15 +134,6 @@ Options -MultiViews
 AddType image/svg+xml svg svgz
 AddEncoding gzip svgz
 AddType text/x-component .htc
-
-
-# REDIRECT ALL WORDPRESS FEEDS TO FEEDBURNER
-#
-# <IfModule mod_alias.c>
-#   RedirectMatch 301 /feed/(atom|rdf|rss|rss2)/?$ http://feedburner.com/yourfeed/
-#   RedirectMatch 301 /comments/feed/(atom|rdf|rss|rss2)/?$ http://feedburner.com/yourfeed/
-# </IfModule>
-
 
 # FORCE INTERNET EXPLORER 8/9/10 TO RENDER PAGES IN THE HIGHEST MODE
 #
