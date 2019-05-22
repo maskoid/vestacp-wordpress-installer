@@ -19,6 +19,10 @@ chmod +x v-install-wordpress
 
 # Install FrontEnd
 
+mkdir /usr/local/vesta/web/install
+mkdir /usr/local/vesta/web/install/wordpress
+
+
 # Add to Navigation
 
 # Success
