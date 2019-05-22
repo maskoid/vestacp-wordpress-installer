@@ -39,6 +39,7 @@ NC='\033[0m' # No Color
 
 # Must Required
 user=$1
+userappend="${user}_"
 domain=$2
 path=$3
 
@@ -54,6 +55,9 @@ dbuser=${11}
 dbpassword=${12}
 https=${13}
 www=${14}
+
+WORKINGDIR="/home/$user/web/$domain/public_html$path"
+wp="/usr/local/vesta/bin/wp-cli.phar"
 
 #Sample
 # v-install-wordpress admin dev.maskoid.com / adminxwp adminwppasswd admain@dev.maskoid.com "Maskoid Techno" "Mohammad Azad" "Shaikh" wpdbdata wpdbuser dbpasswd yes no
@@ -71,13 +75,13 @@ set_user_dir () {
 	fi
 }
 echo -e "\n"
-echo -e "\n"
-echo -e "${YELLOW}###################################################################"
-echo -e "We are installing Wordpress ...."
-echo -e "###################################################################"
+echo -e "${YELLOW}###################################################################
+We are installing Wordpress ....
+###################################################################"
 echo -e "\n
 # Must Required
 $user
+$userappend
 $domain
 $path
 
@@ -101,6 +105,8 @@ ${NC}
 
 
 
+
+
 #----------------------------------------------------------#
 #                    Verifications                         #
 #----------------------------------------------------------#
@@ -116,9 +122,23 @@ if [ ! -d "/home/$user/web/$domain/public_html" ]; then
     exit 1;
 fi
 
+# Check if Install Folder is Empty
+if [ "$(ls -A $WORKINGDIR)" ]; then
+     echo "Take action $WORKINGDIR is not Empty"
+     read -p "Do you want to continue? (y/n): " diranswer
+     if [ $diranswer == "y" ]; then
+     	rm -rf $WORKINGDIR/*
+     else
+    	exit 1;
+ 	fi
+fi
 
+# Check if WP-CLI is Installed
 
-
+if [ ! -f $wp ]; then
+    echo -e "${RED}WP-CLI not found. First Install WP-CLI${NC}";
+    exit 1;
+fi
 
 
 
@@ -126,13 +146,11 @@ fi
 #                       Action                             #
 #----------------------------------------------------------#
 
-WORKINGDIR="/home/$user/web/$domain/public_html$path"
+
 
 echo -e "${YELLOW}Installing wordpress. Localtion${NC} $WORKINGDIR"
 
-
-
-### Database - Start ###
+### Create Database ###
 
 echo -e -n "${YELLOW}Creating Database and DB User. ${NC}"
 
@@ -143,12 +161,32 @@ then
       echo "Done"
 else
       echo "$dbinstallresult"
-      exit 1;
+      # exit 1;
 fi
 
-### Database - End ###
+### Install Wordpress ###
+
+cd $WORKINGDIR
+#echo "$(pwd)"
+#
+dbname="$userappend$dbname"
+dbuser="$userappend$dbuser"
+
+sudo -H -u $user $wp core download
+
+sudo -H -u $user $wp config create --dbname=$dbname --dbuser=$dbuser --dbpass=$dbpassword --dbhost='localhost' --dbprefix='wp_'
+
+sudo -H -u $user $wp core install --url="$domain" --title="$blog_title" --admin_user="$admin_user" --admin_password="$admin_passwd" --admin_email="$admin_email"
+
+sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name="$lname" --display_name="Admin"
 
 
+### Setup .htaccess and robots.txt file ###
+
+curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/robots.txt
+curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/.htaccess
+
+sudo rm -f readme.html
 
 #----------------------------------------------------------#
 #                       Vesta                              #
