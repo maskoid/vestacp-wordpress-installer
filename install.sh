@@ -21,7 +21,8 @@ chmod +x v-install-wordpress
 
 mkdir /usr/local/vesta/web/install
 mkdir /usr/local/vesta/web/install/wordpress
-
+cd /usr/local/vesta/web/install/wordpress
+curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/web/install/wordpress/index.php
 
 # Add to Navigation
 
