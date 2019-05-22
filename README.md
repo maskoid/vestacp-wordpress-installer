@@ -2,6 +2,8 @@
 Automatic Wordpress Installer for VestaCP
 
 
+# Note: This is in development stage.
+
 List of files need to change: 
 
 /usr/local/vesta/web/templates/admin/panel.html -- to add menu - for admin 
