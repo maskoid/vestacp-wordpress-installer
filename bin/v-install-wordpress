@@ -1,0 +1,12 @@
+#!/bin/bash
+# info: install wordpress
+# options: domain install_path admin_email admin_user blog_title fname lname dbname dbuser dbpassword
+#
+# The function will install latest wordpress blog.
+# Developed by maskoid.com vist us @ https://github.com/maskoid
+
+
+
+#----------------------------------------------------------#
+#                    Variable&Function                     #
+#----------------------------------------------------------#
