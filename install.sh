@@ -6,7 +6,6 @@ echo "This will install VeataCP Wordpress Installer in your VestaCP"
 cd /usr/local/vesta/bin
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
-sudo mv wp-cli.phar /usr/local/vesta/bin/wp
 
 # Install Installer
 https://github.com/maskoid/vestacp-wordpress-installer/blob/master/bin/v-install-wordpress
