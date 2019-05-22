@@ -24,6 +24,20 @@ mkdir /usr/local/vesta/web/install/wordpress
 cd /usr/local/vesta/web/install/wordpress
 curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/web/install/wordpress/index.php
 
+# Chmod files 
+chmod 755 /usr/local/vesta/web/list/wp  
+chmod 644 /usr/local/vesta/web/list/wp/index.php
+chmod 644 /usr/local/vesta/web/list/wp/api.php
+
 # Add to Navigation
+
+# Add the link to the panel.html file 
+if grep -q 'WP' /usr/local/vesta/web/templates/admin/panel.html; then
+		echo 'Already there.'
+	else 
+sed -i '/<div class="l-menu clearfix noselect">/a <div class="l-menu__item <?php if($TAB == "WP" ) echo "l-menu__item--active"; ?>"><a href="/list/wp/" target="_blank"><?=__("WP Install")?></a></div>' /usr/local/vesta/web/templates/admin/panel.html;
+fi
+echo "Done! Check VestaCP!" 
+
 
 # Success
