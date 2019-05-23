@@ -140,8 +140,8 @@ sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name
 
 ### Setup .htaccess and robots.txt file ###
 
-curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/robots.txt
-curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/.htaccess
+# curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/robots.txt
+# curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/.htaccess
 
 sudo rm -f readme.html
 
