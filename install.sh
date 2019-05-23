@@ -37,3 +37,4 @@ cd /usr/local/vesta/web/templates/user
 curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/web/templates/user/panel.html
 
 # Success
+echo "VestaCP Wordpress Application Installer by maskoid.com is SUCCESSFULLY INSTALLED"
