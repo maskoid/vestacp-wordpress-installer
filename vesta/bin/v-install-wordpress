@@ -11,17 +11,8 @@
 #                    Variable&Function                     #
 #----------------------------------------------------------#
 
-#Colors settings
-BLUE='\033[0;34m'
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-NC='\033[0m' # No Color
-
 # Argument definition
-
 user=$1
-userappend="${user}_"
 domain=$2
 path=$3
 admin_user=$4
@@ -30,62 +21,15 @@ admin_email=$6
 blog_title=$7
 fname=$8
 lname=$9
-dbname=${10}
-dbuser=${11}
-dbpassword=${12}
-https=${13}
-www=${14}
+https=${10}
+www=${11}
 
 WORKINGDIR="/home/$user/web/$domain/public_html$path"
 wp="/usr/local/vesta/bin/wp-cli.phar"
 
 #Sample
-# v-install-wordpress admin dev.maskoid.com / adminxwp adminwppasswd admain@dev.maskoid.com "Maskoid Techno" "Mohammad Azad" "Shaikh" wpdbdata wpdbuser dbpasswd yes no
+# v-install-wordpress admin maskoid.com / adminxwp adminwppasswd contact@maskoid.com "Maskoid Techno" "Mohammad Azad" "Shaikh" wpdbdata wpdbuser dbpasswd yes no
 # 
-
-set_user_dir () {
-
-	DIRECTORY=/home/$1/web/$2/public_html
-
-	if [ -d "$DIRECTORY" ]; then
-		cd $DIRECTORY
-	else
-		echo -e "${RED}Make sure User and Domain exist and try again!${NC}";
-		exit 0
-	fi
-}
-echo -e "\n"
-echo -e "${YELLOW}###################################################################
-We are installing Wordpress ....
-###################################################################"
-echo -e "\n
-# Must Required
-$user
-$userappend
-$domain
-$path
-
-# Optional
-$admin_user
-$admin_passwd
-$admin_email
-$blog_title
-$fname
-$lname
-$dbname
-$dbuser
-$dbpassword
-$https
-$www
-${NC}
-"
-
-
-
-
-
-
-
 
 #----------------------------------------------------------#
 #                    Verifications                         #
@@ -104,12 +48,14 @@ fi
 
 # Check if Install Folder is Empty
 if [ "$(ls -A $WORKINGDIR)" ]; then
-     echo "Take action $WORKINGDIR is not Empty"
-     read -p "Do you want to continue? (y/n): " diranswer
-     if [ $diranswer == "y" ]; then
-     	rm -rf $WORKINGDIR/*
-     else
-    	exit 1;
+    #install dir is not empty
+    FILECOUNT=$(find $WORKINGDIR -type f | wc -l)
+    DIRCOUNT=$(find $WORKINGDIR -type d | wc -l)
+    if [ $FILECOUNT == "2" ] && [ $DIRCOUNT == "1" ]; then
+    	rm -rf $WORKINGDIR/*
+    else
+    	echo -e "${RED} $WORKINGDIR is not empty ${NC}";
+        exit 1;
  	fi
 fi
 
@@ -126,31 +72,62 @@ fi
 #                       Action                             #
 #----------------------------------------------------------#
 
-
-
-echo -e "${YELLOW}Installing wordpress. Localtion${NC} $WORKINGDIR"
-
 ### Create Database ###
+#Generating Database Name and User (both will be same)
+i=0;
+while [ $i -lt 1000 ]
+do
+i=$((i+1));
+dbname=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 6 | head -n 1)
+dbuser=$user\_$dbname;
+if [ ! -d "/var/lib/mysql/$dbuser" ]; then
+break;
+fi
+done
 
-echo -e -n "${YELLOW}Creating Database and DB User. ${NC}"
+#Generating Database Password
+dbpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
 
-dbinstallresult=$(v-add-database $user $dbname $dbuser $dbpassword)
+dbinstallresult=$(/usr/bin/sudo /usr/local/vesta/bin/v-add-database $user $dbname $dbname $dbpassword)
 
 if [ -z "$dbinstallresult" ]
 then
-      echo "Done"
+      echo "Database Created Successfully"
 else
       echo "$dbinstallresult"
-      # exit 1;
+      exit 1;
 fi
+## So that both will have admin_ in dbname dbuser
+dbname=$dbuser
 
 ### Install Wordpress ###
 
 cd $WORKINGDIR
-#echo "$(pwd)"
-#
-dbname="$userappend$dbname"
-dbuser="$userappend$dbuser"
+
+
+echo -e "${YELLOW}###################################################################"
+echo -e "We are installing Wordpress ...."
+echo -e "###################################################################"
+echo -e "\n
+# Must Required
+$user
+$domain
+$path
+# Optional
+$admin_user
+$admin_passwd
+$admin_email
+$blog_title
+$fname
+$lname
+$dbname
+$dbuser
+$dbpassword
+$https
+$www
+${NC}
+"
+
 
 sudo -H -u $user $wp core download
 
@@ -163,8 +140,8 @@ sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name
 
 ### Setup .htaccess and robots.txt file ###
 
-curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/robots.txt
-curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/.htaccess
+curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/robots.txt
+curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/.htaccess
 
 sudo rm -f readme.html
 
