@@ -18,32 +18,12 @@ RED='\033[0;31m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
-
-#Required:
-#user
-#domain -- select / [install/path/here]
-
-#Admin Email
-#Admin User
-#log Title
-
-#Optional
-#First Name
-#Last Name
-#database name
-#atabase user
-#database password
-
-
 # Argument definition
 
-# Must Required
 user=$1
 userappend="${user}_"
 domain=$2
 path=$3
-
-# Optional
 admin_user=$4
 admin_passwd=$5
 admin_email=$6
