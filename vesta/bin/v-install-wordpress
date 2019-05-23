@@ -27,10 +27,6 @@ www=${11}
 WORKINGDIR="/home/$user/web/$domain/public_html$path"
 wp="/usr/local/vesta/bin/wp-cli.phar"
 
-#Sample
-# v-install-wordpress admin maskoid.com / adminxwp adminwppasswd contact@maskoid.com "Maskoid Techno" "Mohammad Azad" "Shaikh" wpdbdata wpdbuser dbpasswd yes no
-# 
-
 #----------------------------------------------------------#
 #                    Verifications                         #
 #----------------------------------------------------------#
@@ -72,13 +68,20 @@ fi
 #                       Action                             #
 #----------------------------------------------------------#
 
+
+cd $WORKINGDIR
+
+
+echo -e "${YELLOW}###################################################################"
+echo -e "We are installing Wordpress ...."
+echo -e "###################################################################"
+
 ### Create Database ###
 #Generating Database Name and User (both will be same)
-i=0;
-while [ $i -lt 1000 ]
+
+while true
 do
-i=$((i+1));
-dbname=$(cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 6 | head -n 1)
+dbname=$(head /dev/urandom | tr -dc A-Za-z | head -c6)
 dbuser=$user\_$dbname;
 if [ ! -d "/var/lib/mysql/$dbuser" ]; then
 break;
@@ -86,8 +89,8 @@ fi
 done
 
 #Generating Database Password
-dbpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
-
+dbpassword=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c10)
+#Creating Database and DB User
 dbinstallresult=$(/usr/bin/sudo /usr/local/vesta/bin/v-add-database $user $dbname $dbname $dbpassword)
 
 if [ -z "$dbinstallresult" ]
@@ -102,48 +105,22 @@ dbname=$dbuser
 
 ### Install Wordpress ###
 
-cd $WORKINGDIR
 
+sudo -H -u $user $wp core download
 
-echo -e "${YELLOW}###################################################################"
-echo -e "We are installing Wordpress ...."
-echo -e "###################################################################"
-echo -e "\n
-# Must Required
-$user
-$domain
-$path
-# Optional
-$admin_user
-$admin_passwd
-$admin_email
-$blog_title
-$fname
-$lname
-$dbname
-$dbuser
-$dbpassword
-$https
-$www
-${NC}
-"
+sudo -H -u $user $wp config create --dbname=$dbname --dbuser=$dbuser --dbpass=$dbpassword --dbhost='localhost' --dbprefix='wp_'
 
+sudo -H -u $user $wp core install --url="$domain" --title="$blog_title" --admin_user="$admin_user" --admin_password="$admin_passwd" --admin_email="$admin_email"
 
-# sudo -H -u $user $wp core download
-
-# sudo -H -u $user $wp config create --dbname=$dbname --dbuser=$dbuser --dbpass=$dbpassword --dbhost='localhost' --dbprefix='wp_'
-
-# sudo -H -u $user $wp core install --url="$domain" --title="$blog_title" --admin_user="$admin_user" --admin_password="$admin_passwd" --admin_email="$admin_email"
-
-# sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name="$lname" --display_name="Admin"
+sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name="$lname" --display_name="Admin"
 
 
 ### Setup .htaccess and robots.txt file ###
 
-# curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/robots.txt
-# curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/.htaccess
-
+curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/robots.txt
+curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/.htaccess
 sudo rm -f readme.html
+sudo rm -f license.txt
 
 #----------------------------------------------------------#
 #                       Vesta                              #
