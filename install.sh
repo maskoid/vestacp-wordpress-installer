@@ -25,19 +25,19 @@ fi
 # Install / Update VestaCP Wordpress Application Installer
 
 	cd /usr/local/vesta/bin
-	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/bin/v-install-wordpress
+	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/vesta/bin/v-install-wordpress
 	chmod 755 v-install-wordpress
 	chmod +x v-install-wordpress
 
 	cd /usr/local/vesta/web/install/wordpress
-	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/web/install/wordpress/index.php
+	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/vesta/web/install/wordpress/index.php
 	cd /usr/local/vesta/web/templates/admin
-	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/web/templates/admin/install_wp.html
+	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/vesta/web/templates/admin/install_wp.html
 	# Add to Navigation Admin User
-	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/web/templates/admin/panel.html
+	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/vesta/web/templates/admin/panel.html
 	# Add to Navigation Normal User
 	cd /usr/local/vesta/web/templates/user
-	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/web/templates/user/panel.html
+	curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/vesta/web/templates/user/panel.html
 
 	# Success
 	echo "VestaCP Wordpress Application Installer by maskoid.com is SUCCESSFULLY INSTALLED/UPDATED"
