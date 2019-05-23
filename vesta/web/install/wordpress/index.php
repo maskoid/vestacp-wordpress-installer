@@ -6,7 +6,7 @@
 error_reporting(NULL);
 
 ob_start();
-$TAB = 'InstallWP';
+$TAB = 'WordPress';
 
 include($_SERVER['DOCUMENT_ROOT']."/inc/main.php");
 
