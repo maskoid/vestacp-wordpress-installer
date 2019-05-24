@@ -137,7 +137,7 @@ sudo -H -u $user $wp core download
 sudo -H -u $user $wp config create --dbname=$dbname --dbuser=$dbuser --dbpass=$dbpassword --dbhost='localhost' --dbprefix='wp_'
 sudo -H -u $user $wp core install --url="$blog_url" --title="$blog_title" --admin_user="$admin_user" --admin_password="$admin_passwd" --admin_email="$admin_email"
 sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name="$lname" --display_name="Admin"
-sudo -H -u $user $wp plugin delete hello-dolly
+sudo -H -u $user $wp plugin delete hello
 
 
 echo -e "###################################################################"
