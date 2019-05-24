@@ -33,7 +33,6 @@ if (!empty($_POST['ok'])) {
     if (empty($_POST['v_admin_fname'])) $errors[] = __('first name');
     if (empty($_POST['v_admin_lname'])) $errors[] = __('lastname');
     if (empty($_POST['v_http'])) $errors[] = __('http/https');
-    if (empty($_POST['v_www'])) $errors[] = __('www/non-www');
     if (empty($_POST['v_send_email'])) $errors[] = __('send email');
     if (!empty($errors[0])) {
         foreach ($errors as $i => $error) {
@@ -89,7 +88,14 @@ if (!empty($_POST['ok'])) {
         $https = escapeshellarg($_POST['v_http']);
         $www = escapeshellarg($_POST['v_www']);
         $send_email = escapeshellarg($_POST['v_send_email']);
-
+        
+        if ($_POST['v_www'] == 'www')
+        {
+            $www=$www.".";
+            $blog_url = $https."://".$www.$domain.$path;
+        } else {
+            $blog_url = $https."://".$domain.$path;
+        }
         /*
 
         exec (VESTA_CMD."v-add-database ".$user." ".$v_database." ".$v_dbuser." ".$v_password." ".$v_type." ".$v_host." ".$v_charset, $output, $return_var);
@@ -98,7 +104,7 @@ if (!empty($_POST['ok'])) {
         unlink($v_password);
         */
         
-        exec (VESTA_CMD."v-install-wordpress ".$user." ".$domain." ".$path." ".$admin_user." ".$admin_passwd." ".$admin_email." ".$blog_title." ".$fname." ".$lname." ".$https." ".$www, $output, $return_var);
+        exec (VESTA_CMD."v-install-wordpress ".$user." ".$domain." ".$path." ".$admin_user." ".$admin_passwd." ".$admin_email." ".$blog_title." ".$fname." ".$lname." ".$https." ".$www." ".$blog_url, $output, $return_var);
        
         echo "<pre>"; 
             if ($ret == 0) {                // check status code. if successful 
@@ -113,11 +119,13 @@ if (!empty($_POST['ok'])) {
         check_return_code($return_var,$output);
         unset($output);
         unlink($v_password);
+
+        $_SESSION['ok_msg'] = __('WordPress Installed-SUCCESS');
+        $_SESSION['ok_msg'] .= " / <a href=".$blog_url." target='_blank'>" . __('open %s',$blog_title) . "</a>";
  
     }
 
-    $_SESSION['ok_msg'] = __('WordPress Installed-SUCCESS');
-    $_SESSION['ok_msg'] .= " / <a href=".$domain." target='_blank'>" . __('open %s',$blog_title) . "</a>";
+
 
 
 /*
@@ -189,13 +197,6 @@ if (!empty($_POST['ok'])) {
 
 
 
-
-
-
-
-
-
-
 // Get user list of domains
 exec (VESTA_CMD."v-list-web-domains $user json", $output, $return_var);
 $data = json_decode(implode('', $output), true);
@@ -204,33 +205,6 @@ $data = array_reverse($data,true);
 
 // Render page
 render_page($user, $TAB, 'install_wp');
-
-
-
-// Set Variable to Send
-/*
-$user
-
-v_domain
-v_path
-v_admin_user
-v_admin_passwd
-v_blog_title
-v_admin_email
-v_admin_fname
-v_admin_lname
-v_http
-v_send_email
-
-*/
-
-
-
-
-
-
-
-
 
 
 // Back uri
