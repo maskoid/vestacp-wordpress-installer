@@ -49,11 +49,11 @@ if [ "$(ls -A $WORKINGDIR)" ]; then
     FILECOUNT=$(find $WORKINGDIR -type f | wc -l)
     DIRCOUNT=$(find $WORKINGDIR -type d | wc -l)
     if [ $FILECOUNT == "2" ] && [ $DIRCOUNT == "1" ]; then
-    	rm -rf $WORKINGDIR/*
+        rm -rf $WORKINGDIR/*
     else
-    	echo -e "${RED} $WORKINGDIR is not empty ${NC}";
+        echo -e "${RED} $WORKINGDIR is not empty ${NC}";
         exit 1;
- 	fi
+    fi
 fi
 
 # Check if WP-CLI is Installed
@@ -82,23 +82,19 @@ echo -e "###################################################################"
 
 if [ $www = "www" ]; then
     
-    echo "www"
+    midurl="://"
+    dot="."
+    blog_url=$https$midurl$www$dot$domain$path
+
+    #cho $blog_url
     
     else
 
-    echo "no www"
+    midurl="://"
+    blog_url=$https$midurl$domain$path
+    
+    #cho $blog_url
 fi
-
-exit 1;
-
-
-        if ($_POST['v_www'] == 'www')
-        {
-            $www=$www.".";
-            $blog_url = $https."://".$www.$domain.$path;
-        } else {
-            $blog_url = $https."://".$domain.$path;
-        }
 
 ### Create Database ###
 #Generating Database Name and User (both will be same)

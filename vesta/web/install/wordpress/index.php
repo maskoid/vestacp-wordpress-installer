@@ -80,14 +80,6 @@ if (!empty($_POST['ok'])) {
         $www = escapeshellarg($_POST['v_www']);
         $send_email = escapeshellarg($_POST['v_send_email']);
         // Setting Blog URL
-        if ($_POST['v_www'] == 'www')
-        {
-            $www=$www.".";
-            $blog_url = $https."://".$www.$domain.$path;
-        } else {
-            $blog_url = $https."://".$domain.$path;
-        }
-
         
         exec (VESTA_CMD."v-install-wordpress ".$user." ".$domain." ".$path." ".$admin_user." ".$admin_passwd." ".$admin_email." ".$blog_title." ".$fname." ".$lname." ".$https." ".$www." ".$blog_url, $output, $return_var);
        
@@ -99,15 +91,25 @@ if (!empty($_POST['ok'])) {
             } else { 
                 echo "Error in command";    // if unsuccessful display error 
             } 
+            echo $ok_message;
         echo "</pre>"; 
 
         check_return_code($return_var,$output);
         unset($output);
         unlink($v_password);
 
-        $_SESSION['ok_msg'] = __('WordPress Installed-SUCCESS');
-        $_SESSION['ok_msg'] .= " / <a href=".$blog_url." target='_blank'>" . __('open %s',$blog_title) . "</a>";
- 
+        if ($_POST['v_www'] == 'www')
+        {
+            
+            $ok_message = "WordPress Installed-SUCCESS. <a href=\"{$_POST['v_http']}://wwww.{$_POST['v_domain']}\" target=\"_blank\"> open -> $blog_title </a>";
+
+        } else {
+            
+            $ok_message = "WordPress Installed-SUCCESS. <a href=\"{$_POST['v_http']}://{$_POST['v_domain']}\" target=\"_blank\"> open -> $blog_title </a>";
+        }
+       
+        $_SESSION['ok_msg'] = $ok_message;
+
     }
 
 
@@ -158,28 +160,11 @@ if (!empty($_POST['ok'])) {
 
     // Flush field values on success
     if (empty($_SESSION['error_msg'])) {
-        unset($v_database);
-        unset($v_dbuser);
         unset($v_password);
-        unset($v_type);
-        unset($v_charset);
+        unset($v_path);
+        unset($v_blog_title);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Get user list of domains
