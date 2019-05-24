@@ -38,7 +38,7 @@
                     <table class="data-col2" width="600px">
                         <tr>
                             <td class="step-top hint" style="color:#777;">
-                                <?php print __('Please enter below details for your wordpress installation');?>
+                                <?php print __('Please enter below details for your wordpress installation. Note: This can take upto 5 mins.');?>
                             </td>
                         </tr>
 
@@ -198,11 +198,6 @@
         </table>
     </form>
 
-
-
-
-
-
 </div>
 
 
@@ -219,49 +214,22 @@
 </div>
 
 <script>
-randomString = function() {
-    var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
-    var string_length = 10;
-    var randomstring = '';
-    for (var i = 0; i < string_length; i++) {
-        var rnum = Math.floor(Math.random() * chars.length);
-        randomstring += chars.substr(rnum, 1);
-    }
-    document.v_install_wp.v_admin_passwd.value = randomstring;
-}
-
-function resetForm() {
-    document.getElementById("v_install_wp").reset();
-}
-
-document.getElementById("resetBtn").onclick = function() {
-    resetForm();
-}
-
-function wpinstall() {
-
-    var e = document.getElementById("domain");
-    var email = document.getElementById("email").value;
-    var domain = e.options[e.selectedIndex].value;
-    var x = document.getElementById("loading");
-    x.style.display = "block";
-
-
-    data = samgrab('api.php?domain=' + domain + '&email=' + email + '');
-    document.getElementById("output").innerHTML = data;
-    x.style.display = "none";
-
-}
-
-function samgrab(link) {
-    var result = "";
-    $.ajax({
-        url: link,
-        async: false,
-        success: function(data) {
-            result = data;
+    randomString = function () {
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
+        var string_length = 10;
+        var randomstring = '';
+        for (var i = 0; i < string_length; i++) {
+            var rnum = Math.floor(Math.random() * chars.length);
+            randomstring += chars.substr(rnum, 1);
         }
-    });
-    return result;
-}
+        document.v_install_wp.v_admin_passwd.value = randomstring;
+    }
+
+    function resetForm() {
+        document.getElementById("v_install_wp").reset();
+    }
+
+    document.getElementById("resetBtn").onclick = function () {
+        resetForm();
+    }
 </script>

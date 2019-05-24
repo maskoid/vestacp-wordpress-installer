@@ -5,8 +5,6 @@
 # The function will install latest wordpress blog.
 # Developed by maskoid.com vist us @ https://github.com/maskoid
 
-
-
 #----------------------------------------------------------#
 #                    Variable&Function                     #
 #----------------------------------------------------------#
@@ -62,7 +60,6 @@ else
     fi
 fi
 
-
 # Check if WP-CLI is Installed
 
 if [ ! -f $wp ]; then
@@ -70,20 +67,15 @@ if [ ! -f $wp ]; then
     exit 1;
 fi
 
-
-
 #----------------------------------------------------------#
 #                       Action                             #
 #----------------------------------------------------------#
 
-
 cd $WORKINGDIR
-
 
 echo -e "###################################################################"
 echo -e "We are installing Wordpress ...."
 echo -e "###################################################################"
-
 
 ### Blog URL ###
 
@@ -132,14 +124,12 @@ dbname=$dbuser
 
 ### Install Wordpress ###
 
-
 sudo -H -u $user $wp core download
 sudo -H -u $user $wp config create --dbname=$dbname --dbuser=$dbuser --dbpass=$dbpassword --dbhost='localhost' --dbprefix='wp_'
 sudo -H -u $user $wp core install --url="$blog_url" --title="$blog_title" --admin_user="$admin_user" --admin_password="$admin_passwd" --admin_email="$admin_email"
 sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name="$lname" --display_name="Admin"
 sudo -H -u $user $wp plugin delete hello
 sudo -H -u $user $wp theme delete twentyseventeen twentysixteen
-
 
 echo -e "###################################################################"
 echo -e "Your New WordPress Site is Ready!!"
@@ -168,6 +158,5 @@ sudo rm -f license.txt
 #----------------------------------------------------------#
 #                       Vesta                              #
 #----------------------------------------------------------#
-
 
 #will use this when installed in nginx
