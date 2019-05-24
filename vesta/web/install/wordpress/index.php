@@ -64,15 +64,6 @@ if (!empty($_POST['ok'])) {
         if ($pw_len < 6 ) $_SESSION['error_msg'] = __('Password is too short.',$error_msg);
     }
 
-    // Protect input
-    $v_database = escapeshellarg($_POST['v_database']);
-    $v_dbuser = escapeshellarg($_POST['v_dbuser']);
-    $v_type = $_POST['v_type'];
-    $v_charset = $_POST['v_charset'];
-    $v_host = $_POST['v_host'];
-    $v_db_email = $_POST['v_db_email'];
-
-
     // Install WordPress
 
     if (empty($_SESSION['error_msg'])) {
@@ -88,7 +79,7 @@ if (!empty($_POST['ok'])) {
         $https = escapeshellarg($_POST['v_http']);
         $www = escapeshellarg($_POST['v_www']);
         $send_email = escapeshellarg($_POST['v_send_email']);
-        
+        // Setting Blog URL
         if ($_POST['v_www'] == 'www')
         {
             $www=$www.".";
@@ -96,13 +87,7 @@ if (!empty($_POST['ok'])) {
         } else {
             $blog_url = $https."://".$domain.$path;
         }
-        /*
 
-        exec (VESTA_CMD."v-add-database ".$user." ".$v_database." ".$v_dbuser." ".$v_password." ".$v_type." ".$v_host." ".$v_charset, $output, $return_var);
-        check_return_code($return_var,$output);
-        unset($output);
-        unlink($v_password);
-        */
         
         exec (VESTA_CMD."v-install-wordpress ".$user." ".$domain." ".$path." ".$admin_user." ".$admin_passwd." ".$admin_email." ".$blog_title." ".$fname." ".$lname." ".$https." ".$www." ".$blog_url, $output, $return_var);
        
@@ -205,6 +190,10 @@ $data = array_reverse($data,true);
 
 // Render page
 render_page($user, $TAB, 'install_wp');
+
+// Flush session messages
+unset($_SESSION['error_msg']);
+unset($_SESSION['ok_msg']);
 
 
 // Back uri

@@ -77,6 +77,29 @@ echo -e "${YELLOW}##############################################################
 echo -e "We are installing Wordpress ...."
 echo -e "###################################################################"
 
+
+### Blog URL ###
+
+if [ $www = "www" ]; then
+    
+    echo "www"
+    
+    else
+
+    echo "no www"
+fi
+
+exit 1;
+
+
+        if ($_POST['v_www'] == 'www')
+        {
+            $www=$www.".";
+            $blog_url = $https."://".$www.$domain.$path;
+        } else {
+            $blog_url = $https."://".$domain.$path;
+        }
+
 ### Create Database ###
 #Generating Database Name and User (both will be same)
 
