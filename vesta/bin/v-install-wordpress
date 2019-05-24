@@ -32,29 +32,36 @@ wp="/usr/local/vesta/bin/wp-cli.phar"
 #                    Verifications                         #
 #----------------------------------------------------------#
 
-
+## Check if users exists ##
 if [ ! -d "/home/$user" ]; then
     echo -e "${RED}User doesn't exist${NC}";
     exit 1;
 fi
-
+## Check if domain exists ##
 if [ ! -d "/home/$user/web/$domain/public_html" ]; then
     echo -e "${RED}Domain doesn't exist${NC}";
     exit 1;
 fi
 
-# Check if Install Folder is Empty
-if [ "$(ls -A $WORKINGDIR)" ]; then
-    #install dir is not empty
-    FILECOUNT=$(find $WORKINGDIR -type f | wc -l)
-    DIRCOUNT=$(find $WORKINGDIR -type d | wc -l)
-    if [ $FILECOUNT == "2" ] && [ $DIRCOUNT == "1" ]; then
-        rm -rf $WORKINGDIR/*
-    else
-        echo -e "${RED} $WORKINGDIR is not empty ${NC}";
-        exit 1;
+## Check if install path exist ##
+if [ ! -d "/home/$user/web/$domain/public_html$path" ] 
+then
+    sudo -H -u $user mkdir -p $WORKINGDIR
+else
+    # Check if Install Folder is Empty
+    if [ "$(ls -A $WORKINGDIR)" ]; then
+        #install dir is not empty
+        FILECOUNT=$(find $WORKINGDIR -type f | wc -l)
+        DIRCOUNT=$(find $WORKINGDIR -type d | wc -l)
+        if [ $FILECOUNT == "2" ] && [ $DIRCOUNT == "1" ]; then
+            rm -rf $WORKINGDIR/*
+        else
+            echo -e "${RED} $WORKINGDIR is not empty ${NC}";
+            exit 1;
+        fi
     fi
 fi
+
 
 # Check if WP-CLI is Installed
 
@@ -127,9 +134,7 @@ dbname=$dbuser
 
 
 sudo -H -u $user $wp core download
-
 sudo -H -u $user $wp config create --dbname=$dbname --dbuser=$dbuser --dbpass=$dbpassword --dbhost='localhost' --dbprefix='wp_'
-
 sudo -H -u $user $wp core install --url="$blog_url" --title="$blog_title" --admin_user="$admin_user" --admin_password="$admin_passwd" --admin_email="$admin_email"
 
 sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name="$lname" --display_name="Admin"
@@ -137,8 +142,8 @@ sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name
 
 ### Setup .htaccess and robots.txt file ###
 
-curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/robots.txt
-curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/.htaccess
+sudo -H -u $user curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/robots.txt
+sudo -H -u $user curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/.htaccess
 sudo rm -f readme.html
 sudo rm -f license.txt
 

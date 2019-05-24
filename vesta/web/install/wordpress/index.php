@@ -101,11 +101,11 @@ if (!empty($_POST['ok'])) {
         if ($_POST['v_www'] == 'www')
         {
             
-            $ok_message = "WordPress Installed-SUCCESS. <a href=\"{$_POST['v_http']}://wwww.{$_POST['v_domain']}\" target=\"_blank\"> open -> $blog_title </a>";
+            $ok_message = "WordPress Installed-SUCCESS. <a href=\"{$_POST['v_http']}://www.{$_POST['v_domain']}{$_POST['v_path']}\" target=\"_blank\"> open -> $blog_title </a>";
 
         } else {
             
-            $ok_message = "WordPress Installed-SUCCESS. <a href=\"{$_POST['v_http']}://{$_POST['v_domain']}\" target=\"_blank\"> open -> $blog_title </a>";
+            $ok_message = "WordPress Installed-SUCCESS. <a href=\"{$_POST['v_http']}://{$_POST['v_domain']}{$_POST['v_path']}\" target=\"_blank\"> open -> $blog_title </a>";
         }
        
         $_SESSION['ok_msg'] = $ok_message;
