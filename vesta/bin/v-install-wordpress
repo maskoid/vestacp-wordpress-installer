@@ -80,7 +80,7 @@ fi
 cd $WORKINGDIR
 
 
-echo -e "${YELLOW}###################################################################"
+echo -e "###################################################################"
 echo -e "We are installing Wordpress ...."
 echo -e "###################################################################"
 
@@ -140,6 +140,24 @@ sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name
 sudo -H -u $user $wp user plugin delete hello-dolly
 
 
+
+echo -e "###################################################################"
+echo -e "Your New WordPress Site is Ready!!"
+echo -e "###################################################################"
+echo -e " "
+echo -e "Your new WordPress site has been successfully set up at:"
+echo -e " "
+echo -e $blog_url
+echo -e " "
+echo -e "You can log in to the administrator account with the following information:"
+echo -e " "
+echo -e "Username: "$admin_user
+echo -e "Password: "$admin_passwd
+echo -e "Log in here: "$blog_url"wp-login.php"
+echo -e " "
+echo -e "We hope you enjoy your new site. Thanks!"
+echo -e " "
+echo -e "Powered by Maskoid ==> https://github.com/maskoid "
 ### Setup .htaccess and robots.txt file ###
 
 sudo -H -u $user curl -O https://raw.githubusercontent.com/maskoid/vestacp-wordpress-installer/master/resources/robots.txt
