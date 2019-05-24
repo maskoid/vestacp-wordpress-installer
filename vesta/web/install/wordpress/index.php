@@ -100,61 +100,29 @@ if (!empty($_POST['ok'])) {
 
         if ($_POST['v_www'] == 'www')
         {
-            
-            $ok_message = "WordPress Installed-SUCCESS. <a href=\"{$_POST['v_http']}://www.{$_POST['v_domain']}{$_POST['v_path']}\" target=\"_blank\"> open -> $blog_title </a>";
+                $blog_url = "{$_POST['v_http']}://www.{$_POST['v_domain']}{$_POST['v_path']}";
+                $ok_message = "WordPress Installed-SUCCESS. <a href={$blog_url} target=\"_blank\"> Click To Visit:-> {$blog_title} </a>";
 
-        } else {
-            
-            $ok_message = "WordPress Installed-SUCCESS. <a href=\"{$_POST['v_http']}://{$_POST['v_domain']}{$_POST['v_path']}\" target=\"_blank\"> open -> $blog_title </a>";
+            } else {
+                
+                $blog_url = "{$_POST['v_http']}://{$_POST['v_domain']}{$_POST['v_path']}";
+                $ok_message = "WordPress Installed-SUCCESS. <a href={$blog_url} target=\"_blank\"> Click To Visit:-> {$blog_title} </a>";
+
+            }
+           
+            $_SESSION['ok_msg'] = $ok_message;
+
         }
-       
-        $_SESSION['ok_msg'] = $ok_message;
 
-    }
-
-
-
-
-/*
-    // Add database
-    if (empty($_SESSION['error_msg'])) {
-        $v_type = escapeshellarg($_POST['v_type']);
-        $v_charset = escapeshellarg($_POST['v_charset']);
-        $v_host = escapeshellarg($_POST['v_host']);
-        $v_password = tempnam("/tmp","vst");
-        $fp = fopen($v_password, "w");
-        fwrite($fp, $_POST['v_password']."\n");
-        fclose($fp);
-        exec (VESTA_CMD."v-add-database ".$user." ".$v_database." ".$v_dbuser." ".$v_password." ".$v_type." ".$v_host." ".$v_charset, $output, $return_var);
-        check_return_code($return_var,$output);
-        unset($output);
-        unlink($v_password);
-        $v_password = escapeshellarg($_POST['v_password']);
-        $v_type = $_POST['v_type'];
-        $v_host = $_POST['v_host'];
-        $v_charset = $_POST['v_charset'];
-    }
-
-
+/* This module currently not required because WP-CLI installation send confirmation email but without password.
     // Email login credentials
-    if ((!empty($v_db_email)) && (empty($_SESSION['error_msg']))) {
-        $to = $v_db_email;
-        $subject = __("Database Credentials");
+    if ((!empty($send_email)) && (empty($_SESSION['error_msg']))) {
+        $to = $send_email;
+        $subject = __("WordPress Installed Details");
         $hostname = exec('hostname');
         $from = __('MAIL_FROM',$hostname);
-        $mailtext = __('DATABASE_READY',$user."_".$_POST['v_database'],$user."_".$_POST['v_dbuser'],$_POST['v_password'],$db_admin_link);
+        $mailtext = __('DATABASE_READY',$user."_".$_POST['v_admin_user'],$user."_".$_POST['v_admin_user'],$_POST['v_admin_passwd'],$blog_url);
         send_email($to, $subject, $mailtext, $from);
-    }
-
-    // Flush field values on success
-    if (empty($_SESSION['error_msg'])) {
-        $_SESSION['ok_msg'] = __('WordPress Installed-SUCCESS');
-        $_SESSION['ok_msg'] .= " / <a href=".$domain." target='_blank'>" . __('open %s',$db_admin) . "</a>";
-        unset($v_database);
-        unset($v_dbuser);
-        unset($v_password);
-        unset($v_type);
-        unset($v_charset);
     }
 */
 
