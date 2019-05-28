@@ -25,6 +25,8 @@ else
 
 	mkdir /usr/local/vesta/web/install
 	mkdir /usr/local/vesta/web/install/wordpress
+	echo "WP-CLI installed succefully."
+
 fi
 
 # Install / Update VestaCP Wordpress Application Installer
