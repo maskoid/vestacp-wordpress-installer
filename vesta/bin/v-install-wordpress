@@ -121,19 +121,19 @@ dbname=$dbuser
 ### Install Wordpress ###
 echo $WORKINGDIR
 sudo -H -u $user $wp core download
-sudo -H -u $user wp config create --dbname=$dbname --dbuser=$dbuser --dbpass=$dbpassword --dbhost='localhost' --dbprefix='wpxyz_'
-sudo -H -u $user wp core install --url="$blog_url" --title="$blog_title" --admin_user="$admin_user" --admin_password="$admin_passwd" --admin_email="$admin_email"
-sudo -H -u $user wp user update "$admin_user" --first_name="$fname" --last_name="$lname" --display_name="Admin"
-sudo -H -u $user wp plugin delete hello
-sudo -H -u $user wp theme delete twentyseventeen twentysixteen
-sudo -H -u $user wp rewrite structure '/%category%/%postname%/'
-sudo -H -u $user wp option update timezone_string "Asia/Kolkata"
-sudo -H -u $user wp option update blogdescription ""
-sudo -H -u $user wp plugin install akismet edit-author-slug classic-editor password-protected seo-by-rank-math contact-form-7 wp-revisions-control --activate
-sudo -H -u $user wp plugin activate akismet
-sudo -H -u $user wp option update wordpress_api_key "b306c1b3ccd3"
-sudo -H -u $user wp post delete 1
-sudo -H -u $user wp post delete $(wp post list --post_type='page' --format=ids)
+sudo -H -u $user $wp config create --dbname=$dbname --dbuser=$dbuser --dbpass=$dbpassword --dbhost='localhost' --dbprefix='wpxyz_'
+sudo -H -u $user $wp core install --url="$blog_url" --title="$blog_title" --admin_user="$admin_user" --admin_password="$admin_passwd" --admin_email="$admin_email"
+sudo -H -u $user $wp user update "$admin_user" --first_name="$fname" --last_name="$lname" --display_name="Admin"
+sudo -H -u $user $wp plugin delete hello
+sudo -H -u $user $wp theme delete twentyseventeen twentysixteen
+sudo -H -u $user $wp rewrite structure '/%category%/%postname%/'
+sudo -H -u $user $wp option update timezone_string "Asia/Kolkata"
+sudo -H -u $user $wp option update blogdescription ""
+sudo -H -u $user $wp plugin install akismet edit-author-slug classic-editor password-protected seo-by-rank-math contact-form-7 wp-revisions-control --activate
+sudo -H -u $user $wp plugin activate akismet
+sudo -H -u $user $wp option update wordpress_api_key "b306c1b3ccd3"
+sudo -H -u $user $wp post delete 1
+sudo -H -u $user $wp post delete $(wp post list --post_type='page' --format=ids)
 
 echo -e "###################################################################"
 echo -e "Your New WordPress Site is Ready!!"
