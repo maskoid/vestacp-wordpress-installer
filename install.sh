@@ -11,13 +11,14 @@ if test -f "$wpcli"; then
 	cd /usr/local/vesta/bin
 	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 	mv wp-cli.phar wp
-	chmod +x wp-cli.phar
+	chmod +x wp
 
 else
 	# Installing WP-CLI
 	cd /usr/local/vesta/bin
 	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-	chmod +x wp-cli.phar
+	mv wp-cli.phar wp
+	chmod +x wp
 	#All users will use same folder for cache. Good when there are 100s of users on single server.
 	echo "WP_CLI_CACHE_DIR=/home/admin/.wp-cli/cache" >> /etc/environment
 	source /etc/environment
