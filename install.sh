@@ -15,6 +15,7 @@ if test -f "$wpcli"; then
 
 else
 	# Installing WP-CLI
+	echo "Installing WP CLI"
 	cd /usr/local/vesta/bin
 	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 	mv wp-cli.phar wp
