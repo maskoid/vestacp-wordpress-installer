@@ -4,12 +4,13 @@
 echo "This will install VeataCP Wordpress Installer in your VestaCP"
 
 # Check if WP CLI is Installed // Install WP CLI
-wpcli=/usr/local/vesta/bin/wp-cli.phar
+wpcli=/usr/local/vesta/bin/wp
 if test -f "$wpcli"; then
 	echo "WP-CLI already installed."
 	echo "This Script Will Update VeataCP Wordpress Installer"
 	cd /usr/local/vesta/bin
 	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+	mv wp-cli.phar wp
 	chmod +x wp-cli.phar
 
 else
