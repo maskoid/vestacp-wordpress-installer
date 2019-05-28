@@ -133,11 +133,11 @@ sudo -H -u $user wp theme delete twentyseventeen twentysixteen
 sudo -H -u $user wp rewrite structure '/%category%/%postname%/'
 sudo -H -u $user wp option update timezone_string "Asia/Kolkata"
 sudo -H -u $user wp option update blogdescription ""
-wp plugin install akismet edit-author-slug --activate
-sudo -H -u wp plugin activate akismet
+sudo -H -u $user wp plugin install akismet edit-author-slug classic-editor password-protected seo-by-rank-math contact-form-7 wp-revisions-control --activate
+sudo -H -u $user wp plugin activate akismet
 sudo -H -u $user wp option update wordpress_api_key "b306c1b3ccd3"
-wp post delete 1
-wp post delete $(wp post list --post_type='page' --format=ids)
+sudo -H -u $user wp post delete 1
+sudo -H -u $user wp post delete $(wp post list --post_type='page' --format=ids)
 
 echo -e "###################################################################"
 echo -e "Your New WordPress Site is Ready!!"
