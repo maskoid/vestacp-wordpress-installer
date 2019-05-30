@@ -60,7 +60,7 @@
                             <td class="vst-text input-label">
                                 <?php print __('Installation Path');
 
-                                    echo "&nbsp;&nbsp;&nbsp;&nbsp;<em><small>(".__('Enter Path for Wordpress Installation. Default it will install in root directory', 16).")</small></em>";
+                                    echo "&nbsp;&nbsp;<em><small>(".__('Enter Path for Wordpress Installation. Default it will install in root directory', 16).")</small></em>";
                                     ?>
                             </td>
                         </tr>
@@ -74,7 +74,7 @@
                             <td class="vst-text input-label">
                                 <?php
                                         print __('Wordpress Admin Username');
-                                        echo "&nbsp;&nbsp;&nbsp;&nbsp;<em><small>(".__('autogenrated username is recommended', 16).")</small></em>";
+                                        echo "&nbsp;&nbsp;<em><small>(".__('autogenrated username is recommended', 16).")</small></em>";
                                     ?>
                             </td>
                         </tr>
@@ -148,7 +148,9 @@
 
                         <tr>
                             <td class="vst-text input-label">
-                                <?php print __('Choose HTTP/HTTPS');?>
+                                <?php print __('Choose HTTP/HTTPS');
+                                echo "&nbsp;&nbsp;<em><small>(".__('make sure for https ssl is installed already', 16).")</small></em>";
+                                ?>
                             </td>
                         </tr>
                         <tr>
