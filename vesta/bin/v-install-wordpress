@@ -130,7 +130,6 @@ sudo -H -u $user $wp rewrite structure '/%category%/%postname%/'
 sudo -H -u $user $wp option update timezone_string "Asia/Kolkata"
 sudo -H -u $user $wp option update blogdescription ""
 sudo -H -u $user $wp plugin install akismet edit-author-slug classic-editor password-protected seo-by-rank-math contact-form-7 wp-revisions-control --activate
-sudo -H -u $user $wp plugin activate akismet
 sudo -H -u $user $wp option update wordpress_api_key "b306c1b3ccd3"
 sudo -H -u $user $wp post delete 1
 sudo -H -u $user $wp post delete $(wp post list --post_type='page' --format=ids)
