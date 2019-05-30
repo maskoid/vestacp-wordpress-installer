@@ -26,7 +26,7 @@ blog_url=${12}
 WORKINGDIR="/home/$user/web/$domain/public_html$path"
 wp="/usr/local/vesta/bin/wp"
 
-## /usr/local/vesta/bin/v-install-wordpress azad demo.maskoid.com /testing admin password azad@maskoid.com "My Title" Azad Shaikh no
+## /usr/local/vesta/bin/v-install-wordpress vestauser example.com /testing admin password admin@website.com "My Title" Azad Shaikh no
 #----------------------------------------------------------#
 #                    Verifications                         #
 #----------------------------------------------------------#
