@@ -146,7 +146,7 @@ echo -e "You can log in to the administrator account with the following informat
 echo -e " "
 echo -e "Username: "$admin_user
 echo -e "Password: "$admin_passwd
-echo -e "Log in here: "$blog_url"/wp-login.php"
+echo -e "Log in here: "$blog_url"wp-login.php"
 echo -e " "
 echo -e "We hope you enjoy your new site. Thanks!"
 echo -e " "
